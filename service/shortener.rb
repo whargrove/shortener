@@ -13,7 +13,7 @@ class Shortener
   def shorten(url)
     digest = OpenSSL::Digest::SHA1.new
     short_code = digest.update(url).to_s.slice(0..4)
-    $redis.set(short_code, url)
+    $redis.set(short_code, url, {:nx => ""})
     return short_code
   end
 
